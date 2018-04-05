@@ -1,0 +1,11 @@
+Crie um projeto Java + JPA + MySql no modelo Top-Down (da aplicação para o BD)
+O projeto deve conter no mínimo:
+
+5 classes;
+2 relacionamentos 1-n (um para muitos);
+1 Classe embutida (Embeddable);
+2 Heranças;
+Renomear pelo menos 2 tabelas por anotação
+Renomear pelo menos 3 atributos por anotação
+Popular as tabelas com pelo menos 3 registros em cada
+Fazer um HQL para buscar um registro por um campo do tipo String por parâmetro.
