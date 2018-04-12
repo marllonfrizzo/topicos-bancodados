@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package anotacao;
 
 import java.util.Date;
+import java.util.List;
+import model.Automovel;
 import model.Endereco;
 import model.ModCadUsuario;
+import model.Trem;
 import model.Veiculo;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -52,6 +51,14 @@ public class Anotacao {
         v3.setMarca("Fiat");
         v3.setUsuario(user);
         
+        Trem t = new Trem();
+        t.setMarca("Ford");
+        t.setVagoes(18);
+        
+        Automovel au = new Automovel();
+        au.setMarca("Honda");
+        au.setNum_rodas(4);
+        
         user.setNmUsuario("Ultimo User");
         user.setObs("Obs Teste");
         user.setDtNasc(new Date());
@@ -62,20 +69,31 @@ public class Anotacao {
         user.getVeiculos().add(v2);
         user.getVeiculos().add(v3);
         
-        
         s.beginTransaction();
         s.persist(v1);
         s.persist(v2);
         s.persist(v3);
         s.persist(user);
+        s.persist(t);
+        s.persist(au);
         s.getTransaction().commit();
+        
+        Query q = s.createQuery("from Veiculo where marca=:Pmarca");
+        q.setString("Pmarca", "Honda");
+        List<Veiculo>  veiculos = (List<Veiculo>) q.list();
+        System.out.println("Quantidade: "+veiculos.size());
+        for (Veiculo vv: veiculos) {
+            System.out.println(vv.getMarca());
+        }
+        
         s.close();
+        
         
         /*user = null;
         s = sf.openSession();
         s.beginTransaction();
         user = (ModCadUsuario) s.get(ModCadUsuario.class, 2);
-        //System.out.println("Usuario recuperado: "+user.getNmUsuario());
+        System.out.println("Usuario recuperado: "+user.getNmUsuario());
         s.close();*/
         
         System.exit(0);

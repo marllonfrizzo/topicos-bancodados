@@ -50,5 +50,7 @@ Contributor(s):
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
     <mapping class="model.ModCadUsuario"/>
     <mapping class="model.Veiculo"/>
+    <mapping class="model.Trem"/>
+    <mapping class="model.Automovel"/>
   </session-factory>
 </hibernate-configuration>
