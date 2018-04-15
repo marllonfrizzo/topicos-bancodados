@@ -47,7 +47,10 @@ Contributor(s):
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping resource="Model/Veiculos.hbm.xml"/>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <mapping class="Model.Cliente" />
+    <mapping class="Model.Pessoa" />
+    <mapping class="Model.Venda" />
+    <mapping class="Model.Vendedor" />
   </session-factory>
 </hibernate-configuration>
