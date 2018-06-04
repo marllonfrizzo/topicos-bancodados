@@ -1,18 +1,16 @@
 package Model;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author marllonfrizzo
  */
-@Entity (name="cadCliente")
+@Table (name="cadCliente")
+@Entity
 public class Cliente extends Pessoa {
     private int qtdeCompras;
     private Double valorComprado;
@@ -20,12 +18,15 @@ public class Cliente extends Pessoa {
     @ManyToOne
     private Venda venda;
     
-    @ElementCollection
-    @JoinTable(name="Telefone", joinColumns = @JoinColumn(name="id"))
-    private Set<Telefone> telefones;
+    @Embedded
+    private Telefone fone;
 
-    public Cliente() {
-        this.telefones = new HashSet<>();
+    public Telefone getFone() {
+        return fone;
+    }
+
+    public void setFone(Telefone fone) {
+        this.fone = fone;
     }
 
     public Venda getVenda() {
@@ -50,14 +51,6 @@ public class Cliente extends Pessoa {
 
     public void setValorComprado(Double valorComprado) {
         this.valorComprado = valorComprado;
-    }
-
-    public Set<Telefone> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(Set<Telefone> telefones) {
-        this.telefones = telefones;
     }
     
 }

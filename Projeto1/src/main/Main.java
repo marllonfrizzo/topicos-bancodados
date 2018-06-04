@@ -6,6 +6,7 @@ import Model.Telefone;
 import Model.Venda;
 import Model.Vendedor;
 import Util.HibernateUtil;
+import dao.GenericDAO;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -88,17 +89,17 @@ public class Main {
         Telefone t = new Telefone();
         t.setDDD(44);
         t.setNumero("99920-2425");
-        c1.getTelefones().add(t);
+        c1.setFone(t);
         
         Telefone t2 = new Telefone();
         t2.setDDD(44);
         t2.setNumero("99999-9999");
-        c2.getTelefones().add(t2);
+        c2.setFone(t2);
         
         Telefone t3 = new Telefone();
         t3.setDDD(44);
         t3.setNumero("88888-2323");
-        c3.getTelefones().add(t3);
+        c3.setFone(t3);
         
         c1.setVenda(v1);
         c2.setVenda(v3);
@@ -108,9 +109,11 @@ public class Main {
         s.persist(v1);
         s.persist(v2);
         s.persist(v3);
+        
         s.persist(c1);
         s.persist(c2);
         s.persist(c3);
+        
         s.persist(func);
         s.persist(func2);
         s.persist(func3);
@@ -118,11 +121,35 @@ public class Main {
         
         Query q = s.createQuery("from Pessoa where nome=:Pnome");
         q.setString("Pnome", "Marllon");
-        List<Pessoa>  pessoas = (List<Pessoa>) q.list();
+        List<Pessoa> pessoas = (List<Pessoa>) q.list();
         System.out.println("Quantidade: "+pessoas.size());
         for (Pessoa pp: pessoas) {
             System.out.println(pp.getNome());
         }
+        
+        Query q1 = s.createQuery("select nome from Pessoa");
+        List<String> pessoasNome = (List<String>) q1.list();
+        System.out.println("Quantidade: "+pessoasNome.size());
+        for (int i = 0; i < pessoasNome.size(); i++) {
+            System.out.println(pessoasNome.get(i));
+        }
+        
+        /*Query q2 = s.createQuery("select nome, cpf from Pessoa");
+        List<Pessoa> p = (List<Pessoa>) q2.list();
+        System.out.println("Quantidade: "+p.size());
+        for (int i = 0; i < p.size(); i++) {
+            System.out.println(p.get(i).toString());
+        }*/
+        
+        
+        // Exemplo com Generic DAO
+        GenericDAO gd = new GenericDAO();
+        gd.salvar(t3);
+        
+        Pessoa p = (Pessoa) gd.buscar(Pessoa.class, 1);
+        p.setNome("Seu Jorge");
+        gd.atualizar(p);
+        // Fim exemplo com Generic DAO
             
         s.close(); // fecha a sessão
         System.exit(0);

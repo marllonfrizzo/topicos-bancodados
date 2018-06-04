@@ -9,12 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author marllonfrizzo
  */
-@Entity (name="cadVenda")
+@Table (name="cadVenda")
+@Entity
 public class Venda {
     @Id @GeneratedValue
     private int idVenda;

@@ -6,13 +6,15 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author marllonfrizzo
  */
 
-@Entity (name="cadVendedor")
+@Table (name="cadVendedor")
+@Entity
 public class Vendedor extends Pessoa {
     @Column (name="idVendedor")
     private int codVendedor;
